@@ -1,0 +1,5 @@
+name: PermissionsPlus
+version: 0.0.1
+author: Zeuss
+main: me.zeuss.permissionsplus.Main
+api-version: "1.16"

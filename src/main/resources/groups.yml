@@ -1,0 +1,20 @@
+groups:
+  member:
+    prefix: ''
+    suffix: ''
+    extensions: []
+    permissions:
+      - 'onixmc.command.kit'
+      - 'onixmc.command.spawn'
+      - 'onixmc.command.home'
+      - 'onixmc.command.sethome'
+      - 'onixmc.command.sethome.4'
+      - 'onixmc.command.delhome'
+  vip_1:
+    prefix: ''
+    suffix: ''
+    extensions:
+      - 'member'
+    permissions:
+      - 'onixmc.command.kit.vip'
+      - 'onixmc.command.sethome.10'
