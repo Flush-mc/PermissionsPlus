@@ -3,6 +3,7 @@ package me.zeuss.permissionsplus.managers;
 import me.zeuss.permissionsplus.Main;
 import me.zeuss.permissionsplus.models.Group;
 import me.zeuss.permissionsplus.utilities.ConfigFile;
+import me.zeuss.permissionsplus.utilities.Logg;
 import me.zeuss.permissionsplus.utilities.task.APIScheduler;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class GroupManager implements Manager {
                             groups.add(g);
                         });
                         gpp.clear();
-                        plugin.log(Level.INFO, "[Grupos]", groups.size() + " grupos carregados.");
+                        Logg.make(Level.INFO, "[Grupos]", groups.size() + " grupos carregados.");
                     }
                 }
                 cancel();
@@ -74,12 +75,12 @@ public class GroupManager implements Manager {
     public void save() {
         try {
             if (file == null || !file.exists()) {
-                plugin.log(Level.WARNING, "[Grupos]", "Nenhum arquivo encontrado para salvar.");
+                Logg.make(Level.WARNING, "[Grupos]", "Nenhum arquivo encontrado para salvar.");
                 return;
             }
             file.save();
         } catch (Exception ex) {
-            plugin.log(Level.SEVERE, "[Grupos]", "Erro ao tentar salvar.\n".concat(ex.getMessage()));
+            Logg.make(Level.SEVERE, "[Grupos]", "Erro ao tentar salvar.\n".concat(ex.getMessage()));
         }
     }
 }

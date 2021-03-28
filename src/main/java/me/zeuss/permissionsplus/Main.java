@@ -1,21 +1,18 @@
 package me.zeuss.permissionsplus;
 
 import me.zeuss.permissionsplus.command.PermissionCommand;
+import me.zeuss.permissionsplus.listeners.Join;
 import me.zeuss.permissionsplus.managers.GroupManager;
 import me.zeuss.permissionsplus.managers.Manager;
+import me.zeuss.permissionsplus.managers.UsersManager;
 import me.zeuss.permissionsplus.utilities.ConfigFile;
-import me.zeuss.permissionsplus.utilities.task.APIScheduler;
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 
     private ConfigFile configFile, groupsFile, playersFile;
-    private Manager groupManager;
+    private Manager groupManager, usersManager;
 
     @Override
     public void onLoad() {
@@ -28,15 +25,13 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         // Managers
         this.groupManager = new GroupManager(this, groupsFile);
+        this.usersManager = new UsersManager(this, playersFile);
+
+        // Listeners
+        new Join(this);
 
         // Commands
         new PermissionCommand(this);
-
-        getServer().getScheduler().runTask(this, () -> {
-            PluginManager manager = Bukkit.getPluginManager();
-//            manager.getPermissions().forEach(p -> System.out.println(p.getName()));
-        });
-
     }
 
     @Override
@@ -44,16 +39,20 @@ public class Main extends JavaPlugin {
         HandlerList.unregisterAll(this);
     }
 
+    public ConfigFile getConfig() {
+        return this.configFile;
+    }
+
     public GroupManager getGroupManager() {
         return (GroupManager) groupManager;
     }
 
-    public static Main getInstance() {
-        return Main.getPlugin(Main.class);
+    public UsersManager getUserManager() {
+        return (UsersManager) this.usersManager;
     }
 
-    public void log(Level level, String prefix, String message) {
-        this.getServer().getLogger().log(level, "[" + this.getName() + "] " + (prefix != null ? (prefix.concat(" ").concat(message)) : message));
+    public static Main getInstance() {
+        return Main.getPlugin(Main.class);
     }
 
 }

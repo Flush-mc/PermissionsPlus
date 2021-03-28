@@ -1,7 +1,6 @@
 package me.zeuss.permissionsplus.models;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Group {
 
@@ -43,13 +42,22 @@ public class Group {
         return permissions.contains(permission);
     }
 
+    public void removePermission(String permission) {
+        if (hasPermission(permission))
+            this.permissions.remove(permission);
+    }
+
+    public void removePermissions(List<String> permissions) {
+        permissions.forEach(this::removePermission);
+    }
+
     public void addPermission(String permission) {
         if (!hasPermission(permission))
-            permissions.add(permission);
+            this.permissions.add(permission);
     }
 
     public void addPermissions(List<String> permissions) {
-        this.permissions.addAll(permissions.stream().filter(p -> !this.permissions.contains(p)).collect(Collectors.toList()));
+        permissions.forEach(this::addPermission);
     }
 
 }

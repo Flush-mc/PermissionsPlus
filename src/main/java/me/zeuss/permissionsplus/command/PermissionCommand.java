@@ -2,8 +2,10 @@ package me.zeuss.permissionsplus.command;
 
 import me.zeuss.permissionsplus.Main;
 import me.zeuss.permissionsplus.command.sub.GroupsSubCommand;
+import me.zeuss.permissionsplus.command.sub.UsersSubCommand;
 import me.zeuss.permissionsplus.managers.GroupManager;
 import me.zeuss.permissionsplus.managers.SubCommand;
+import me.zeuss.permissionsplus.managers.UsersManager;
 import me.zeuss.permissionsplus.utilities.command.Command;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.command.CommandSender;
@@ -16,16 +18,18 @@ import java.util.List;
 public class PermissionCommand extends Command {
 
     private Main plugin;
-    private GroupManager manager;
+    private GroupManager G_manager;
+    private UsersManager U_manager;
     private HashMap<String, SubCommand> subs;
 
     public PermissionCommand(Main plugin) {
         super("permissions");
         this.plugin = plugin;
-        this.manager = plugin.getGroupManager();
+        this.G_manager = plugin.getGroupManager();
         this.subs = new HashMap<>();
 
-        this.subs.put("groups", new GroupsSubCommand(this.manager));
+        this.subs.put("groups", new GroupsSubCommand(this.G_manager));
+        this.subs.put("users", new UsersSubCommand(this.U_manager));
     }
 
     @Override
