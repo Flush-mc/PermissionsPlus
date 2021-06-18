@@ -28,7 +28,7 @@ public class UsersManager implements Manager {
         Logg.make(Level.INFO, "save", def_group);
         ArrayList<String> list = new ArrayList<>();
         list.add(def_group);
-        file.set("players." + uuid.toString() + ".groups", list);
+        file.set("players." + uuid.toString() + ".groups", Collections.singletonList(def_group));
         file.set("players." + uuid.toString() + ".permissions",  new ArrayList<String>());
         save();
     }
